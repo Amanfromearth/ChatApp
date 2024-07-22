@@ -39,8 +39,8 @@ const ChatListItem = ({ name, message, time, avatarName,toggleSidebar }) => (
 );
 
 const Sidebar = ({ isVisible, toggleSidebar }) => (
-  <aside className={`w-fit ${isVisible ? 'flex' : 'hidden'} h-full md:flex gap-2 flex-col`}>
-    <header className="h-fit max-h-[80px] p-6 flex items-center gap-2 rounded-2xl bg-front">
+  <aside className={` ${isVisible ? 'flex' : 'hidden '} w-screen md:w-fit h-full md:flex gap-2 flex-col`}>
+    <header className="h-fit w-full justify-center max-h-[80px] p-6 flex items-center gap-2 rounded-2xl bg-front">
       <h2 className="text-xl font-semibold">Chat</h2>
       <SearchBar />
       <button className="rounded-full p-1 text-white bg-accenttwo">
@@ -116,7 +116,7 @@ const ChatArea = ({ toggleSidebar, isVisible }) => (
   <section className={`h-full w-full rounded-2xl ${isVisible ? 'hidden' : 'flex'} gap-2 flex-col`}>
     <Header toggleSidebar={toggleSidebar} />
     <main className="rounded-2xl bg-front w-full h-full flex flex-col items-center justify-end overflow-y-auto relative p-4">
-      <div className="border-2 border-slate-600 bg-front text-slate-500 absolute top-5 rounded-full p-3 text-sm font-medium py-1">
+      <div className="border-2 border-slate-500 bg-front text-slate-500 absolute top-5 rounded-full p-3 text-sm font-medium py-1">
         17 july
       </div>
       <ChatBubble message="Hey, how's it going?" isUser={true} />
@@ -136,7 +136,7 @@ export default function Home() {
 
   return (
     <div className="w-full h-full rounded-2xl flex md:p-3 md:gap-2">
-      <div className="w-fit h-full items-center justify-center flex flex-col gap-3 md:flex-row">
+      <div className="w-fit h-full flex flex-col gap-3 md:flex-row">
         <Navigation  />
         <Sidebar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
       </div>
