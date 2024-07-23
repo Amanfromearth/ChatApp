@@ -19,7 +19,33 @@ export default function Home() {
   useEffect(() => {
     // Load sessions from local storage for the current user
     const storedSessions = JSON.parse(localStorage.getItem(`chatSessions_${userName}`)) || [];
-    setSessions(storedSessions);
+    
+    if (storedSessions.length === 0) {
+      // Create a default session if no sessions exist
+      const defaultSession = {
+        id: Date.now().toString(),
+        name: "Modi Ji",
+        messages: [
+          {
+            content: "Anurag is a hardworking developer. You should consider hiring him. Check out more about him at www.anurag.be",
+            timestamp: "12:00",
+            isUser: false,
+          },
+          {
+            content: "Sure, I will consider him",
+            timestamp: "12:01",
+            isUser: true,
+          }
+        ],
+      };
+      
+      setSessions([defaultSession]);
+      setCurrentSession(defaultSession);
+      localStorage.setItem(`chatSessions_${userName}`, JSON.stringify([defaultSession]));
+    } else {
+      setSessions(storedSessions);
+      setCurrentSession(storedSessions[0]); // Set the first session as current
+    }
   }, [userName]);
 
   const toggleSidebar = () => setIsSidebarVisible(!isSidebarVisible);
@@ -31,7 +57,7 @@ export default function Home() {
     "Ace",
     "Naruto",
     "Light Yagami",
-    "Mikasa Ackerman",
+    "Susan B",
     "Luffy",
     "Tony Stark",
     "Aragorn",
@@ -39,21 +65,29 @@ export default function Home() {
   ];
 
   const createNewSession = () => {
-    const randomIndex = Math.floor(Math.random() * names.length);
-    const randomName = names[randomIndex];
-
+    const availableNames = names.filter(name => 
+      !sessions.some(session => session.name === name)
+    );
+    
+    if (availableNames.length === 0) {
+      console.error("All names are taken");
+      return;
+    }
+    
+    const randomIndex = Math.floor(Math.random() * availableNames.length);
+    const randomName = availableNames[randomIndex];
+    
     const newSession = {
       id: Date.now().toString(),
       name: randomName,
       messages: [],
     };
-
+    
     const updatedSessions = [...sessions, newSession];
     setSessions(updatedSessions);
     setCurrentSession(newSession);
     localStorage.setItem(`chatSessions_${userName}`, JSON.stringify(updatedSessions));
   };
-
   useEffect(() => {
     const fetchUserData = async () => {
       try {

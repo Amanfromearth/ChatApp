@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { getUserMeLoader } from "@/data/services/getUserMeLoader";
 import { NextResponse } from "next/server";
 

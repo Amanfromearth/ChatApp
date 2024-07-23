@@ -116,7 +116,6 @@ if (!responseData || responseData.error) {
       message: "Failed to Login.",
     };
   }
-  console.log(responseData)
   cookies().set("jwt", responseData.jwt, config);
 
   redirect("/");

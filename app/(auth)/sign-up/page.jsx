@@ -13,13 +13,12 @@ const intialState = {
 };
 export default function RegisterPage() {
   const [formState, formAction] = useFormState(registerUser, intialState)
-  console.log(formState, "from client")
   return (
     <div className="flex min-h-full bg-front rounded-2xl flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <Image
           alt="logo"
-          src="/logo.png"
+          src="/images/logo.png"
           width={50}
           height={50}
           className="mx-auto h-10 w-auto"

@@ -21,7 +21,7 @@ export default function SigninPage() {
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <Image
               alt="Your Company"
-              src="/logo.png"
+              src="/images/logo.png"
               width={50}
               height={50}
               className="mx-auto h-10 w-auto"

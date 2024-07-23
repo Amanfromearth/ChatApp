@@ -45,7 +45,7 @@ const MessageInput = ({ onSendMessage }) => {
         />
       </div>
       <button type="submit" className="p-4 group bg-accenttwo rounded-xl text-white">
-        <Image src="/paperPlane.svg" className="group-hover:translate-x-1 transition-all ease-in-out duration-300" alt="send icon" width={25} height={25} />
+        <Image src="/images/paperPlane.svg" className="group-hover:translate-x-1 transition-all ease-in-out duration-300" alt="send icon" width={25} height={25} />
       </button>
     </form>
   );
