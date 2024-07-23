@@ -1,7 +1,7 @@
-// components/section/ChatArea.js
 "use client"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowLeft } from "lucide-react";
+import { format } from 'date-fns';
 import Avatar from "boring-avatars";
 import Image from "next/image";
 const UserStatus = ({ name, status }) => (
@@ -64,6 +64,11 @@ const ChatBubble = ({ message, isUser }) => (
 
 const ChatArea = ({ toggleSidebar, isVisible, currentSession, updateSession, socket }) => {
   const [messages, setMessages] = useState([]);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     if (currentSession) {
@@ -72,11 +77,15 @@ const ChatArea = ({ toggleSidebar, isVisible, currentSession, updateSession, soc
   }, [currentSession]);
 
   useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  useEffect(() => {
     socket.on('messageReceived', (data) => {
       if (currentSession) {
         const newMessage = {
           content: data.content,
-          timestamp: new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', }),
+          timestamp: format(new Date(), 'HH:mm'),
           isUser: false,
         };
         setMessages(prevMessages => [...prevMessages, newMessage]);
@@ -93,7 +102,7 @@ const ChatArea = ({ toggleSidebar, isVisible, currentSession, updateSession, soc
     if (currentSession) {
       const newMessage = {
         content,
-        timestamp: new Date().toISOString(),
+        timestamp: format(new Date(), 'HH:mm'),
         isUser: true,
       };
       setMessages(prevMessages => [...prevMessages, newMessage]);
@@ -105,13 +114,16 @@ const ChatArea = ({ toggleSidebar, isVisible, currentSession, updateSession, soc
   return (
     <section className={`h-full w-full rounded-2xl ${isVisible ? 'hidden md:flex' : 'flex'} gap-2 flex-col`}>
       <Header toggleSidebar={toggleSidebar} currentSession={currentSession} />
-      <main className="rounded-2xl bg-front w-full h-full flex flex-col items-center justify-end overflow-y-scroll relative p-4">
-        <div className="border-2 border-slate-500 bg-front text-slate-500 absolute top-5 rounded-full p-3 text-sm font-medium py-1">
-          {new Date().toLocaleDateString()}
+      <main className="rounded-2xl bg-front w-full h-full flex flex-col overflow-hidden">
+        <div className="flex-1 overflow-y-auto p-4">
+          <div className="border-2 border-slate-500 bg-front text-slate-500 sticky top-0 left-1/2 transform -translate-x-1/2 rounded-full p-3 text-sm font-medium py-1 mb-4 inline-block">
+            {format(new Date(), 'dd/MM/yyyy')}
+          </div>
+          {messages.map((message, index) => (
+            <ChatBubble key={index} message={message} isUser={message.isUser} />
+          ))}
+          <div ref={messagesEndRef} />
         </div>
-        {messages.map((message, index) => (
-          <ChatBubble key={index} message={message} isUser={message.isUser} />
-        ))}
       </main>
       <MessageInput onSendMessage={handleSendMessage} />
     </section>

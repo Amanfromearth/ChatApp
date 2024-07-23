@@ -1,6 +1,7 @@
 // app/page.js
 "use client";
 import { useState, useEffect } from "react";
+import { format } from 'date-fns';
 import io from 'socket.io-client';
 import Navigation from "../components/section/Navigation";
 import Sidebar from "../components/section/Sidebar";
@@ -17,23 +18,22 @@ export default function Home() {
   const [currentSession, setCurrentSession] = useState(null);
 
   useEffect(() => {
-    // Load sessions from local storage for the current user
     const storedSessions = JSON.parse(localStorage.getItem(`chatSessions_${userName}`)) || [];
     
     if (storedSessions.length === 0) {
-      // Create a default session if no sessions exist
+      
       const defaultSession = {
         id: Date.now().toString(),
         name: "Modi Ji",
         messages: [
           {
             content: "Anurag is a hardworking developer. You should consider hiring him. Check out more about him at www.anurag.be",
-            timestamp: "12:00",
+            timestamp: format(new Date(), 'HH:mm'),
             isUser: false,
           },
           {
             content: "Sure, I will consider him",
-            timestamp: "12:01",
+            timestamp: format(new Date(Date.now() + 60000), 'HH:mm'), 
             isUser: true,
           }
         ],
@@ -44,7 +44,7 @@ export default function Home() {
       localStorage.setItem(`chatSessions_${userName}`, JSON.stringify([defaultSession]));
     } else {
       setSessions(storedSessions);
-      setCurrentSession(storedSessions[0]); // Set the first session as current
+      setCurrentSession(storedSessions[0]); 
     }
   }, [userName]);
 
