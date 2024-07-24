@@ -1,16 +1,30 @@
 "use client";
-
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 import { loginUserAction } from "@/data/actions/auth-actions";
 import Image from "next/image";
 import { ZodErrors } from "@/components/fromErrors";
 import { StrapiErrors } from "@/components/strapierror";
+
 const INITIAL_STATE = {
   zodErrors: null,
   strapiErrors: null,
   data: null,
   message: null,
 };
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <button
+      type="submit"
+      className="flex w-full justify-center rounded-md bg-accenttwo px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      disabled={pending}
+    >
+      {pending ? 'Signing in...' : 'Sign in'}
+    </button>
+  );
+}
 export default function SigninPage() {
   const [formState, formAction] = useFormState(loginUserAction, INITIAL_STATE);
 
@@ -70,12 +84,7 @@ export default function SigninPage() {
               </div>
   
               <div>
-                <button
-                  type="submit"
-                  className="flex w-full justify-center rounded-md bg-accenttwo px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Sign in
-                </button>
+              <SubmitButton />
                 <StrapiErrors error={formState?.strapiErrors} />
               </div>
             </form>

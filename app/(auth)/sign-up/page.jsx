@@ -3,16 +3,31 @@ import { ZodErrors } from "@/components/fromErrors";
 import { StrapiErrors } from "@/components/strapierror";
 import { registerUser } from "@/data/actions/auth-actions";
 import Image from "next/image";
-import {useFormState} from "react-dom"
+import { useFormState, useFormStatus } from "react-dom"
 
-const intialState = {
+const initialState = {
   zodErrors: null,
   strapiErrors: null,
   data: null,
   message: null,
 };
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <button
+      type="submit"
+      className="flex w-full justify-center rounded-md bg-accenttwo px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      disabled={pending}
+    >
+      {pending ? 'Signing up...' : 'Sign up'}
+    </button>
+  );
+}
+
 export default function RegisterPage() {
-  const [formState, formAction] = useFormState(registerUser, intialState)
+  const [formState, formAction] = useFormState(registerUser, initialState)
   return (
     <div className="flex min-h-full bg-front rounded-2xl flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -45,12 +60,7 @@ export default function RegisterPage() {
             autoComplete="current-password"
           />
           <ZodErrors error={formState?.zodErrors?.password} />
-          <button
-            type="submit"
-            className="flex w-full justify-center rounded-md bg-accenttwo px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Sign up
-          </button>
+          <SubmitButton />
           <StrapiErrors error={formState?.strapiErrors}/>
         </form>
         <p className="mt-10 text-center text-sm text-gray-500">
