@@ -14,7 +14,6 @@ const initialState = {
 
 function SubmitButton() {
   const { pending } = useFormStatus();
-
   return (
     <button
       type="submit"
@@ -44,22 +43,27 @@ export default function RegisterPage() {
       </div>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" action={formAction}>
-          <InputField id="username" label="Name" type="text" autoComplete="uesrname" />
-          <ZodErrors error={formState?.zodErrors?.name} />
+          <InputField 
+            id="username" 
+            label="Name" 
+            type="text" 
+            autoComplete="username" 
+            error={formState?.zodErrors?.username}
+          />
           <InputField
             id="email"
             label="Email address"
             type="email"
             autoComplete="email"
+            error={formState?.zodErrors?.email}
           />
-           <ZodErrors error={formState?.zodErrors?.email} />
           <InputField
             id="password"
             label="Password"
             type="password"
-            autoComplete="current-password"
+            autoComplete="new-password"
+            error={formState?.zodErrors?.password}
           />
-          <ZodErrors error={formState?.zodErrors?.password} />
           <SubmitButton />
           <StrapiErrors error={formState?.strapiErrors}/>
         </form>
@@ -77,7 +81,7 @@ export default function RegisterPage() {
   );
 }
 
-function InputField({ id, label, type }) {
+function InputField({ id, label, type, autoComplete, error }) {
   return (
     <div>
       <label
@@ -91,8 +95,10 @@ function InputField({ id, label, type }) {
           id={id}
           name={id}
           type={type}
+          autoComplete={autoComplete}
           className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
         />
+        {error && <ZodErrors error={error} />}
       </div>
     </div>
   );
