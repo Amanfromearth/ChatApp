@@ -79,7 +79,7 @@ export default function RegisterPage() {
   );
 }
 
-function InputField({ id, label, type, autoComplete }) {
+function InputField({ id, label, type }) {
   return (
     <div>
       <label

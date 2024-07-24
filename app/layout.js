@@ -6,7 +6,7 @@ const dmSans = DM_Sans({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Chat-Ayna",
-  description: "Chat application powered by Anurag",
+  description: "Chat application made by Anurag",
 };
 
 export default function RootLayout({ children }) {
