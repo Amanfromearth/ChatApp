@@ -3,18 +3,7 @@ import { ZodErrors } from "@/components/fromErrors";
 import { StrapiErrors } from "@/components/strapierror";
 import { registerUser } from "@/data/actions/auth-actions";
 import Image from "next/image";
-import { useFormState } from "react-dom"
-import { useState, useEffect } from 'react';
-
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogAction,
-} from "@/components/ui/alert-dialog" 
+import {useFormState} from "react-dom"
 
 const intialState = {
   zodErrors: null,
@@ -22,18 +11,10 @@ const intialState = {
   data: null,
   message: null,
 };
-
 export default function RegisterPage() {
   const [formState, formAction] = useFormState(registerUser, intialState)
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  useEffect(() => {
-
-    setIsDialogOpen(true);
-  }, []);
-
   return (
-    <div className="flex relative min-h-full bg-front rounded-2xl flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-full bg-front rounded-2xl flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <Image
           alt="logo"
@@ -82,20 +63,6 @@ export default function RegisterPage() {
           </a>
         </p>
       </div>
-
-      <AlertDialog open={isDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Please Read This</AlertDialogTitle>
-            <AlertDialogDescription>
-              The server may be paused due to a free trial version. Please try now, and if it doesnt work, try again after 2 minutes. I apologize for any inconvenience caused.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogAction onClick={() => setIsDialogOpen(false)}>Understood</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </div>
   );
 }

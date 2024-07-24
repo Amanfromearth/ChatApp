@@ -6,7 +6,7 @@ import Navigation from "../components/section/Navigation";
 import Sidebar from "../components/section/Sidebar";
 import ChatArea from "../components/section/ChatArea";
 
-const socket = io("https://chat-backend-c9f1.onrender.com", {
+const socket = io("https://ayna-backend-b2aea8062f3c.herokuapp.com", {
   transports: ["websocket"],
 });
 
