@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${dmSans.className} bg-zinc-200 md:p-5 w-full h-[100dvh]`}>
+      <body className={`${dmSans.className} bg-zinc-200 lg:p-5 w-full h-[100dvh]`}>
         <main className="w-full h-full">{children}</main>
         <Toaster />
       </body>

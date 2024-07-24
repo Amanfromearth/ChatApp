@@ -18,7 +18,7 @@ const UserStatus = ({ name, status }) => (
 const Header = ({ toggleSidebar, currentSession }) => (
   <header className="rounded-2xl max-h-[80px] sticky top-0 bg-front w-full flex items-center justify-between p-4">
     <div className="w-fit h-full items-center gap-2 flex">
-      <ArrowLeft className="md:hidden cursor-pointer" onClick={toggleSidebar} />
+      <ArrowLeft className="lg:hidden cursor-pointer" onClick={toggleSidebar} />
       <Avatar name={currentSession?.name || "No Session"}  colors={["#0A0310", "#49007E", "#FF005B", "#FF7D10", "#FFB238"]} size={50} variant="beam" />
       <UserStatus name={currentSession?.name || "No Session"} status="online" />
     </div>
@@ -62,7 +62,7 @@ const MessageInput = ({ onSendMessage }) => {
 
 const ChatBubble = ({ message, isUser }) => (
   <div className={`flex w-full ${isUser ? "justify-end" : "justify-start"} mb-4`}>
-    <div className={`max-w-[70%] overflow-clip md:text-base text-sm font-medium p-3 rounded-2xl ${
+    <div className={`max-w-[70%] overflow-clip lg:text-base text-sm font-medium p-3 rounded-2xl ${
       isUser ? "bg-accenttwo rounded-br-none text-white" : "bg-[#e6e6e6] rounded-bl-none text-black"
     }`}>
       <p>{message.content}</p>
@@ -120,7 +120,7 @@ const ChatArea = ({ toggleSidebar, isVisible, currentSession, updateSession, soc
   };
 
   return (
-    <section className={`h-full w-full rounded-2xl ${isVisible ? 'hidden md:flex' : 'flex'} gap-2 flex-col`}>
+    <section className={`h-full w-full rounded-2xl ${isVisible ? 'hidden lg:flex' : 'flex'} gap-2 flex-col`}>
       <Header toggleSidebar={toggleSidebar} currentSession={currentSession} />
       <main className="rounded-2xl bg-front w-full h-full flex flex-col overflow-hidden">
         <div className="flex-1 overflow-y-auto p-4">

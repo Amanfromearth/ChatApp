@@ -125,11 +125,11 @@ export default function Home() {
   };
 
   return (
-    <div className="w-full h-full rounded-2xl flex md:p-3 md:gap-2">
+    <div className="w-full h-full rounded-2xl flex lg:p-3 lg:gap-2">
       <div
         className={`w-fit ${
           isSidebarVisible ? "flex" : "hidden"
-        } h-full md:flex flex-col-reverse gap-2 md:gap-3 md:flex-row`}
+        } h-full lg:flex flex-col-reverse gap-2 lg:gap-3 lg:flex-row`}
       >
         <Navigation />
         <Sidebar
