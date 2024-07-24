@@ -15,7 +15,11 @@ export default function Home() {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [sessions, setSessions] = useState([]);
   const [currentSession, setCurrentSession] = useState(null);
+  const [pageLoaded, setPageLoaded] = useState(false);
 
+  useEffect(() => {
+    setPageLoaded(true);
+  }, []);
   useEffect(() => {
     const storedSessions =
       JSON.parse(localStorage.getItem(`chatSessions_${userName}`)) || [];
@@ -125,11 +129,13 @@ export default function Home() {
   };
 
   return (
-    <div className="w-full h-full rounded-2xl flex lg:p-3 lg:gap-2">
+    <div className="w-full h-full rounded-2xl flex lg:p-3 lg:gap-2 overflow-hidden">
       <div
         className={`w-fit ${
           isSidebarVisible ? "flex" : "hidden"
-        } h-full lg:flex flex-col-reverse gap-2 lg:gap-3 lg:flex-row`}
+        } h-full lg:flex flex-col-reverse gap-2 lg:gap-3 lg:flex-row transition-all duration-500 ease-in-out ${
+         pageLoaded ? 'opacity-100' : 'opacity-0'
+        }`}
       >
         <Navigation />
         <Sidebar
@@ -137,7 +143,7 @@ export default function Home() {
           sessions={sessions}
           createNewSession={createNewSession}
           setCurrentSession={setCurrentSession}
-          currentSession={currentSession} 
+          currentSession={currentSession}
         />
       </div>
       <ChatArea
@@ -146,6 +152,7 @@ export default function Home() {
         currentSession={currentSession}
         updateSession={updateSession}
         socket={socket}
+        pageLoaded={pageLoaded}
       />
     </div>
   );

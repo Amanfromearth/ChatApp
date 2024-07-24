@@ -70,7 +70,7 @@ const ChatBubble = ({ message, isUser }) => (
   </div>
 );
 
-const ChatArea = ({ toggleSidebar, isVisible, currentSession, updateSession, socket }) => {
+const ChatArea = ({ toggleSidebar, isVisible, currentSession, updateSession, pageLoaded, socket }) => {
   const [messages, setMessages] = useState([]);
   const messagesEndRef = useRef(null);
 
@@ -120,7 +120,9 @@ const ChatArea = ({ toggleSidebar, isVisible, currentSession, updateSession, soc
   };
 
   return (
-    <section className={`h-full w-full rounded-2xl ${isVisible ? 'hidden lg:flex' : 'flex'} gap-2 flex-col`}>
+    <section className={`h-full w-full rounded-2xl ${isVisible ? 'hidden lg:flex' : 'flex'} gap-2 flex-col transition-all duration-500 ease-in-out ${
+      pageLoaded ? 'opacity-100' : 'opacity-0'
+    }`}>
       <Header toggleSidebar={toggleSidebar} currentSession={currentSession} />
       <main className="rounded-2xl bg-front w-full h-full flex flex-col overflow-hidden">
         <div className="flex-1 overflow-y-auto p-4">
