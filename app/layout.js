@@ -1,5 +1,6 @@
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 const dmSans = DM_Sans({ subsets: ["latin"] });
 
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${dmSans.className} bg-zinc-200 md:p-5 w-full h-[100dvh]`}>
         <main className="w-full h-full">{children}</main>
+        <Toaster />
       </body>
     </html>
   );

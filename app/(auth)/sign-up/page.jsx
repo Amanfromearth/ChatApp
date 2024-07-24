@@ -3,16 +3,28 @@ import { ZodErrors } from "@/components/fromErrors";
 import { StrapiErrors } from "@/components/strapierror";
 import { registerUser } from "@/data/actions/auth-actions";
 import Image from "next/image";
-import {useFormState} from "react-dom"
+import { useFormState } from "react-dom"
+import { toast } from "sonner"
 
-const intialState = {
+const initialState = {
   zodErrors: null,
   strapiErrors: null,
   data: null,
   message: null,
 };
+
 export default function RegisterPage() {
-  const [formState, formAction] = useFormState(registerUser, intialState)
+  const [formState, formAction] = useFormState(registerUser, initialState)
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    toast("Event has been created.");
+    setTimeout(() => {
+      toast("The server might be paused because of free trial. Try after a 2 minutes.");
+    }, 5000);
+    event.target.submit();
+  };
+
   return (
     <div className="flex min-h-full bg-front rounded-2xl flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -28,8 +40,8 @@ export default function RegisterPage() {
         </h2>
       </div>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action={formAction}>
-          <InputField id="username" label="Name" type="text" autoComplete="uesrname" />
+        <form className="space-y-6" action={formAction} onSubmit={handleSubmit}>
+          <InputField id="username" label="Name" type="text" autoComplete="username" />
           <ZodErrors error={formState?.zodErrors?.name} />
           <InputField
             id="email"
@@ -37,7 +49,7 @@ export default function RegisterPage() {
             type="email"
             autoComplete="email"
           />
-           <ZodErrors error={formState?.zodErrors?.email} />
+          <ZodErrors error={formState?.zodErrors?.email} />
           <InputField
             id="password"
             label="Password"
