@@ -123,5 +123,5 @@ if (!responseData || responseData.error) {
 
 export async function logoutAction() {
   cookies().set("jwt", "", { ...config, maxAge: 0 });
-  redirect("/sign-in");
+  return { success: true };
 }
