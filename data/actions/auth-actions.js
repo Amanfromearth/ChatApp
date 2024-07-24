@@ -6,11 +6,11 @@ import { redirect } from "next/navigation";
 import { registerUserService, loginUserService } from "../services/auth-services";
 
 const config = {
-  maxAge: 60 * 60 * 24 * 7,
+  maxAge: 60 * 60 * 24 * 7, // 7 days
   path: "/",
-  domain: process.env.HOST ?? "localhost",
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
+  sameSite: "lax",
 };
 
 const schemaRegister = z.object({

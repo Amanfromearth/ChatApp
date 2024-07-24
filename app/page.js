@@ -11,7 +11,7 @@ const socket = io("https://chat-backend-c9f1.onrender.com", {
 });
 
 export default function Home() {
-  const [userName, setUserName] = useState(" ");
+  const [userName, setUserName] = useState("user");
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [sessions, setSessions] = useState([]);
   const [currentSession, setCurrentSession] = useState(null);
