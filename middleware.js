@@ -11,7 +11,7 @@ export async function middleware(request) {
 
   const user = await getUserMeLoader();
   if (user.ok === false) {
-    return NextResponse.redirect(new URL("/sign-in", request.url));
+    return NextResponse.redirect(new URL("/sign-up", request.url));
   }
 
   return NextResponse.next();

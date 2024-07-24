@@ -4,6 +4,8 @@ import { ArrowLeft } from "lucide-react";
 import { format } from 'date-fns';
 import Avatar from "boring-avatars";
 import Image from "next/image";
+import InputEmoji from 'react-input-emoji'
+
 const UserStatus = ({ name, status }) => (
   <div className="flex flex-col h-full text-left justify-center items-center font-medium text-base">
     <p>{name}</p>
@@ -26,22 +28,28 @@ const Header = ({ toggleSidebar, currentSession }) => (
 const MessageInput = ({ onSendMessage }) => {
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const sendMessage = () => {
     if (message.trim()) {
       onSendMessage(message);
       setMessage("");
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    sendMessage();
+  };
+
   return (
     <form className="flex items-center gap-1 w-full" onSubmit={handleSubmit}>
       <div className="w-full h-full flex items-center bg-front rounded-2xl">
-        <input
+        <InputEmoji
           placeholder="Write Messages..."
-          className="bg-transparent h-full pl-5 w-full rounded-2xl"
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={setMessage}
+          cleanOnEnter
+          onEnter={sendMessage}
+          className=""
         />
       </div>
       <button type="submit" className="p-4 group bg-accenttwo rounded-xl text-white">
@@ -54,7 +62,7 @@ const MessageInput = ({ onSendMessage }) => {
 
 const ChatBubble = ({ message, isUser }) => (
   <div className={`flex w-full ${isUser ? "justify-end" : "justify-start"} mb-4`}>
-    <div className={`max-w-[70%] text-sm font-medium p-3 rounded-2xl ${
+    <div className={`max-w-[70%] overflow-clip md:text-base text-sm font-medium p-3 rounded-2xl ${
       isUser ? "bg-accenttwo rounded-br-none text-white" : "bg-[#e6e6e6] rounded-bl-none text-black"
     }`}>
       <p>{message.content}</p>
@@ -116,7 +124,7 @@ const ChatArea = ({ toggleSidebar, isVisible, currentSession, updateSession, soc
       <Header toggleSidebar={toggleSidebar} currentSession={currentSession} />
       <main className="rounded-2xl bg-front w-full h-full flex flex-col overflow-hidden">
         <div className="flex-1 overflow-y-auto p-4">
-          <div className="border-2 border-slate-500 bg-front text-slate-500 sticky top-0 left-1/2 transform -translate-x-1/2 rounded-full p-3 text-sm font-medium py-1 mb-4 inline-block">
+          <div className="border-2 border-slate-500 bg-front text-slate-500 sticky top-0 left-1/2 transform -translate-x-1/2 rounded-full p-3 text-xs font-medium py-1 mb-4 inline-block">
             {format(new Date(), 'dd/MM/yyyy')}
           </div>
           {messages.map((message, index) => (
