@@ -33,7 +33,6 @@ const Navigation = () => {
       router.push('/sign-in');
     } else {
       setIsLoggingOut(false);
-      // Handle error if needed
     }
   };
 
