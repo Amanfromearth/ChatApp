@@ -4,9 +4,19 @@ import { StrapiErrors } from "@/components/strapierror";
 import { registerUser } from "@/data/actions/auth-actions";
 import Image from "next/image";
 import { useFormState } from "react-dom"
-import { toast } from "sonner"
+import { useState, useEffect } from 'react';
 
-const initialState = {
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog" 
+
+const intialState = {
   zodErrors: null,
   strapiErrors: null,
   data: null,
@@ -14,19 +24,16 @@ const initialState = {
 };
 
 export default function RegisterPage() {
-  const [formState, formAction] = useFormState(registerUser, initialState)
+  const [formState, formAction] = useFormState(registerUser, intialState)
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    toast("Event has been created.");
-    setTimeout(() => {
-      toast("The server might be paused because of free trial. Try after a 2 minutes.");
-    }, 5000);
-    event.target.submit();
-  };
+  useEffect(() => {
+
+    setIsDialogOpen(true);
+  }, []);
 
   return (
-    <div className="flex min-h-full bg-front rounded-2xl flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex relative min-h-full bg-front rounded-2xl flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <Image
           alt="logo"
@@ -40,8 +47,8 @@ export default function RegisterPage() {
         </h2>
       </div>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action={formAction} onSubmit={handleSubmit}>
-          <InputField id="username" label="Name" type="text" autoComplete="username" />
+        <form className="space-y-6" action={formAction}>
+          <InputField id="username" label="Name" type="text" autoComplete="uesrname" />
           <ZodErrors error={formState?.zodErrors?.name} />
           <InputField
             id="email"
@@ -49,7 +56,7 @@ export default function RegisterPage() {
             type="email"
             autoComplete="email"
           />
-          <ZodErrors error={formState?.zodErrors?.email} />
+           <ZodErrors error={formState?.zodErrors?.email} />
           <InputField
             id="password"
             label="Password"
@@ -75,6 +82,20 @@ export default function RegisterPage() {
           </a>
         </p>
       </div>
+
+      <AlertDialog open={isDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Please Read This</AlertDialogTitle>
+            <AlertDialogDescription>
+              The server may be paused due to a free trial version. Please try now, and if it doesnt work, try again after 2 minutes. I apologize for any inconvenience caused.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={() => setIsDialogOpen(false)}>Understood</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
