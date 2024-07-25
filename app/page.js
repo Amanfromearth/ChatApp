@@ -59,18 +59,18 @@ export default function Home() {
 
   const names = [
     "Zoro",
-    "Ghandi",
+    "Gandhi",
     "Goku",
     "Ace",
     "Naruto",
     "Light Yagami",
-    "Aryabatha",
+    "Aryabhata",
     "Luffy",
     "Tony Stark",
     "Aragorn",
     "James Bond",
   ];
-
+  
   const createNewSession = () => {
     const availableNames = names.filter(
       (name) => !sessions.some((session) => session.name === name)
