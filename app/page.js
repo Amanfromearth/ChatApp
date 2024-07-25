@@ -57,7 +57,7 @@ export default function Home() {
 
   const toggleSidebar = () => setIsSidebarVisible(!isSidebarVisible);
 
-  const names = [
+  const baseNames = [
     "Zoro",
     "Gandhi",
     "Goku",
@@ -72,24 +72,30 @@ export default function Home() {
   ];
   
   const createNewSession = () => {
-    const availableNames = names.filter(
-      (name) => !sessions.some((session) => session.name === name)
-    );
-
-    if (availableNames.length === 0) {
-      console.error("All names are taken");
-      return;
-    }
-
-    const randomIndex = Math.floor(Math.random() * availableNames.length);
-    const randomName = availableNames[randomIndex];
-
+    let newName;
+    let counter = 1;
+  
+    do {
+      const availableNames = baseNames.filter(
+        (name) => !sessions.some((session) => session.name === name)
+      );
+  
+      if (availableNames.length > 0) {
+        const randomIndex = Math.floor(Math.random() * availableNames.length);
+        newName = availableNames[randomIndex];
+      } else {
+        const randomIndex = Math.floor(Math.random() * baseNames.length);
+        newName = `${baseNames[randomIndex]} ${counter}`;
+        counter++;
+      }
+    } while (sessions.some((session) => session.name === newName));
+  
     const newSession = {
       id: Date.now().toString(),
-      name: randomName,
+      name: newName,
       messages: [],
     };
-
+  
     const updatedSessions = [...sessions, newSession];
     setSessions(updatedSessions);
     setCurrentSession(newSession);
