@@ -12,7 +12,7 @@ const socket = io("https://ayna-backend-b2aea8062f3c.herokuapp.com", {
 
 export default function Home() {
   const [userName, setUserName] = useState("user");
-  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(true);
   const [sessions, setSessions] = useState([]);
   const [currentSession, setCurrentSession] = useState(null);
   const [pageLoaded, setPageLoaded] = useState(false);
@@ -59,12 +59,12 @@ export default function Home() {
 
   const names = [
     "Zoro",
-    "Sakura",
+    "Ghandi",
     "Goku",
     "Ace",
     "Naruto",
     "Light Yagami",
-    "Susan B",
+    "Aryabatha",
     "Luffy",
     "Tony Stark",
     "Aragorn",
@@ -129,7 +129,7 @@ export default function Home() {
   };
 
   return (
-    <div className="w-full h-full rounded-2xl flex lg:p-3 lg:gap-2 overflow-hidden">
+    <div className="w-full h-full rounded-2xl rounded-b-none lg:rounded-b-2xl flex lg:p-3 lg:gap-2 overflow-hidden">
       <div
         className={`w-fit ${
           isSidebarVisible ? "flex" : "hidden"

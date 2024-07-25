@@ -54,8 +54,8 @@ const Sidebar = ({ toggleSidebar, sessions, createNewSession, setCurrentSession,
     fetchUserData();
   }, []);
   return(
-    <aside className={`transition-all ease-in-out w-screen lg:w-fit h-full lg:flex gap-2 flex-col`}>
-      <header className="h-fit w-full justify-between max-h-[80px] lg:min-w-[350px] p-6 flex items-center gap-2 rounded-2xl bg-front">
+    <aside className={`transition-all ease-in-out  w-screen lg:w-fit h-full lg:flex gap-2 flex-col`}>
+      <header className="h-fit w-full justify-between z-20 max-h-[80px] lg:min-w-[350px] p-6 flex items-center gap-2 rounded-2xl bg-front">
         <h2 className="text-xl text-nowrap font-semibold">Welcome {userName}</h2>
         <button
           className="rounded-full group p-1 text-white bg-accenttwo"
