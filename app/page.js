@@ -5,8 +5,11 @@ import io from "socket.io-client";
 import Navigation from "../components/section/Navigation";
 import Sidebar from "../components/section/Sidebar";
 import ChatArea from "../components/section/ChatArea";
+import { getStrapiURL } from "@/lib/utils";
 
-const socket = io("https://ayna-backend-b2aea8062f3c.herokuapp.com", {
+const baseUrl = getStrapiURL();
+
+const socket = io(baseUrl, {
   transports: ["websocket"],
 });
 
