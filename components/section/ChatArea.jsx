@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import Avatar from "boring-avatars";
 import Image from "next/image";
 import InputEmoji from 'react-input-emoji'
+import { motion } from "framer-motion";
 
 const UserStatus = ({ name, status }) => (
   <div className="flex flex-col h-full text-left justify-center items-center font-medium text-base">
@@ -60,14 +61,25 @@ const MessageInput = ({ onSendMessage }) => {
 };
 
 
+
 const ChatBubble = ({ message, isUser }) => (
-  <div className={`flex w-full ${isUser ? "justify-end" : "justify-start"} mb-4`}>
-    <div className={`max-w-[70%] overflow-clip lg:text-base text-sm font-medium p-3 rounded-2xl ${
-      isUser ? "bg-accenttwo rounded-br-none text-white" : "bg-[#e6e6e6] rounded-bl-none text-black"
-    }`}>
+  <motion.div
+    initial={{ opacity: 0, scale: 0.8 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ type: "spring", stiffness: 260, damping: 20 }}
+    className={`flex w-full ${isUser ? "justify-end" : "justify-start"} mb-4`}
+  >
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.1, duration: 0.2 }}
+      className={`max-w-[70%] overflow-clip lg:text-base text-sm font-medium p-3 rounded-2xl ${
+        isUser ? "bg-accenttwo rounded-br-none text-white" : "bg-[#e6e6e6] rounded-bl-none text-black"
+      }`}
+    >
       <p>{message.content}</p>
-    </div>
-  </div>
+    </motion.div>
+  </motion.div>
 );
 
 const ChatArea = ({ toggleSidebar, isVisible, currentSession, updateSession, pageLoaded, socket }) => {
