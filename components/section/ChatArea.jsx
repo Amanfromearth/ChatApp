@@ -66,7 +66,7 @@ const ChatBubble = ({ message, isUser }) => (
   <motion.div
     initial={{ opacity: 0, scale: 0.8, x: isUser ? 300 : -300 }}
     animate={{ opacity: 1, scale: 1, x: 0 }}
-    transition={{ duration: 1, type: "spring", stiffness: 260, damping: 20 }}
+    transition={{ duration: 0.5, type: "spring", stiffness: 260, damping: 20 }}
     className={`flex w-full ${isUser ? "justify-end" : "justify-start"} mb-4`}
   >
     <motion.div
@@ -137,7 +137,7 @@ const ChatArea = ({ toggleSidebar, isVisible, currentSession, updateSession, pag
     }`}>
       <Header toggleSidebar={toggleSidebar} currentSession={currentSession} />
       <main className="rounded-2xl bg-front w-full h-full flex flex-col overflow-hidden">
-        <div className="flex-1 overflow-y-auto p-4">
+        <div className="flex-1 overflow-x-hidden overflow-y-auto p-4">
           <div className="border-2 border-slate-500 bg-front text-slate-500 sticky top-0 left-1/2 transform -translate-x-1/2 rounded-full p-3 text-xs font-medium py-1 mb-4 inline-block">
             {format(new Date(), 'dd/MM/yyyy')}
           </div>
