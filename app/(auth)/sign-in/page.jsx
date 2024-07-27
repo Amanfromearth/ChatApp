@@ -20,7 +20,7 @@ function SubmitButton() {
       className="flex w-full justify-center rounded-md bg-accenttwo px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       disabled={pending}
     >
-      {pending ? 'Signing in...' : 'Sign in'}
+      {pending ? "Signing in..." : "Sign in"}
     </button>
   );
 }
@@ -28,7 +28,10 @@ function SubmitButton() {
 function InputField({ id, label, type, autoComplete, error }) {
   return (
     <div>
-      <label htmlFor={id} className="block text-sm font-medium leading-6 text-gray-900">
+      <label
+        htmlFor={id}
+        className="block text-sm font-medium leading-6 text-gray-900"
+      >
         {label}
       </label>
       <div className="mt-2">
@@ -50,60 +53,63 @@ export default function SigninPage() {
   const [formState, formAction] = useFormState(loginUserAction, INITIAL_STATE);
   return (
     <>
-    <main className="lg:grid lg:grid-cols-2 w-full h-full">
-      <div className="flex min-h-full bg-white rounded-2xl rounded-r-none flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+      <main className="lg:grid lg:grid-cols-2 w-full h-full">
+        <div className="flex min-h-full bg-white rounded-2xl rounded-r-none flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+            <Image
+              alt="logo"
+              src="/images/logo.png"
+              width={50}
+              height={50}
+              className="mx-auto h-10 w-auto"
+            />
+            <h2 className="mt-8 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+              Sign in to your account
+            </h2>
+          </div>
+          <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form action={formAction} className="space-y-4">
+              <InputField
+                id="email"
+                label="Email address"
+                type="email"
+                autoComplete="email"
+                error={formState?.zodErrors?.email}
+              />
+              <InputField
+                id="password"
+                label="Password"
+                type="password"
+                autoComplete="current-password"
+                error={formState?.zodErrors?.password}
+              />
+              <div>
+                <SubmitButton />
+                <StrapiErrors error={formState?.strapiErrors} />
+              </div>
+            </form>
+            <p className="mt-10 text-center text-sm text-gray-500">
+              Not Registered?{" "}
+              <a
+                href="/sign-up"
+                className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+              >
+                Sign up Now!!
+              </a>
+            </p>
+          </div>
+        </div>
+        <div className="w-full rounded-2xl rounded-l-none relative overflow-hidden">
           <Image
-            alt="logo"
-            src="/images/logo.png"
-            width={50}
-            height={50}
-            className="mx-auto h-10 w-auto"
+            priority
+            src="/images/Midjourney-Image-22.png"
+            layout="fill"
+            objectFit="cover"
+            className="rounded-r-2xl"
+            alt="landscape"
           />
-          <h2 className="mt-8 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign in to your account
-          </h2>
         </div>
-        <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action={formAction} className="space-y-4">
-            <InputField
-              id="email"
-              label="Email address"
-              type="email"
-              autoComplete="email"
-              error={formState?.zodErrors?.email}
-            />
-            <InputField
-              id="password"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-              error={formState?.zodErrors?.password}
-            />
-            <div>
-              <SubmitButton />
-              <StrapiErrors error={formState?.strapiErrors} />
-            </div>
-          </form>
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Not Registered?{' '}
-            <a href="/sign-up" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              Sign up Now!!
-            </a>
-          </p>
-        </div>
-       
-      </div>
-      <div className="w-full rounded-2xl rounded-l-none relative overflow-hidden">
-        <Image 
-          src="/images/Midjourney-Image-22.png" 
-          layout="fill"
-          objectFit="cover"
-          className="rounded-r-2xl"
-          alt="landscape"
-        />
-      </div>
-    </main>
+      </main>
     </>
   );
 }

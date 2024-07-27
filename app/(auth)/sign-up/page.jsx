@@ -81,7 +81,8 @@ export default function RegisterPage() {
       </div>
       <div className="w-full rounded-2xl rounded-l-none relative overflow-hidden">
         <Image
-          src="/images/Midjourney-Image-22.png"
+          priority
+          src="/images/Midjourney-Image-22.webp"
           layout="fill"
           objectFit="cover"
           className="rounded-r-2xl"
