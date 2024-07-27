@@ -102,7 +102,7 @@ export default function SigninPage() {
         <div className="w-full rounded-2xl rounded-l-none relative overflow-hidden">
           <Image
             priority
-            src="/images/Midjourney-Image-22.png"
+            src="/images/Midjourney-Image-22.webp"
             layout="fill"
             objectFit="cover"
             className="rounded-r-2xl"
