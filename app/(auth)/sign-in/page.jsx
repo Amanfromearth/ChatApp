@@ -48,25 +48,24 @@ function InputField({ id, label, type, autoComplete, error }) {
 
 export default function SigninPage() {
   const [formState, formAction] = useFormState(loginUserAction, INITIAL_STATE);
-
   return (
     <>
-      <div className="flex min-h-full bg-front rounded-2xl flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <main className="lg:grid lg:grid-cols-2 w-full h-full">
+      <div className="flex min-h-full bg-white rounded-2xl rounded-r-none flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Image
-            alt="Your Company"
+            alt="logo"
             src="/images/logo.png"
             width={50}
             height={50}
             className="mx-auto h-10 w-auto"
           />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-8 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
           </h2>
         </div>
-
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action={formAction} className="space-y-6">
+        <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form action={formAction} className="space-y-4">
             <InputField
               id="email"
               label="Email address"
@@ -74,7 +73,6 @@ export default function SigninPage() {
               autoComplete="email"
               error={formState?.zodErrors?.email}
             />
-
             <InputField
               id="password"
               label="Password"
@@ -82,13 +80,11 @@ export default function SigninPage() {
               autoComplete="current-password"
               error={formState?.zodErrors?.password}
             />
-
             <div>
               <SubmitButton />
               <StrapiErrors error={formState?.strapiErrors} />
             </div>
           </form>
-
           <p className="mt-10 text-center text-sm text-gray-500">
             Not Registered?{' '}
             <a href="/sign-up" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
@@ -96,7 +92,18 @@ export default function SigninPage() {
             </a>
           </p>
         </div>
+       
       </div>
+      <div className="w-full rounded-2xl rounded-l-none relative overflow-hidden">
+        <Image 
+          src="/images/Midjourney-Image-22.png" 
+          layout="fill"
+          objectFit="cover"
+          className="rounded-r-2xl"
+          alt="landscape"
+        />
+      </div>
+    </main>
     </>
   );
 }

@@ -64,9 +64,9 @@ const MessageInput = ({ onSendMessage }) => {
 
 const ChatBubble = ({ message, isUser }) => (
   <motion.div
-    initial={{ opacity: 0, scale: 0.8 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ type: "spring", stiffness: 260, damping: 20 }}
+    initial={{ opacity: 0, scale: 0.8, x: isUser ? 300 : -300 }}
+    animate={{ opacity: 1, scale: 1, x: 0 }}
+    transition={{ duration: 1, type: "spring", stiffness: 260, damping: 20 }}
     className={`flex w-full ${isUser ? "justify-end" : "justify-start"} mb-4`}
   >
     <motion.div
